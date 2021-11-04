@@ -17,6 +17,7 @@ gem 'shoulda-matchers', '~> 5.0'
 
 group :development, :test do
   gem 'factory_bot_rails', '~> 6.2'
+  gem 'panolint', '~> 0.1.3'
   gem 'pry-rails', '~> 0.3.9'
   gem 'rspec-rails', '~> 5.0'
   gem 'rubocop-rails', '~> 2.12'
