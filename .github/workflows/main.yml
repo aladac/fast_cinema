@@ -7,17 +7,20 @@ on:
     branches: [ master ]
 
 jobs:
-  test:
-
-    runs-on: ubuntu-latest
+  linters:
+    name: Linters
+    runs-on: ubuntu-20.04
+    timeout-minutes: 30
 
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@477b21f02be01bcb8030d50f37cfec92bfa615b6
+
+      - name: Set up Ruby 3.0.2
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.0
-      - name: Install dependencies
-        run: bundle install
-      - name: Run tests
-        run: bundle exec rake
+          bundler-cache: true
+          ruby-version: 3.0.2
+
+      - name: Run linters
+        run: |
+          bundle exec rubocop
