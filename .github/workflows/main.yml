@@ -1,43 +1,42 @@
-name: CI
+name: Rails - Install dependencies and run linters
 
 on:
+  push:
+    branches: [ master ]
   pull_request:
-    branches-ignore: [ main ]
-
+    branches: [ master ]
 jobs:
-  linters:
-    name: Linters
-    runs-on: ubuntu-20.04
-    timeout-minutes: 30
-
+  specs:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Set up Ruby 3.0.2
+      - name: Setup Ruby and install gems
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-          ruby-version: 3.0.2
+          ruby-version: 3.0
 
-      - name: Run linters
+      - name: Initialize database
+        env:
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPASSWORD: postgres
+          PGPORT: ${{ job.services.postgres.ports[5432] }}
         run: |
-          bundle exec rubocop
+          bundle exec rails db:create
 
-  ruby-lint:
-    if: ${{ always() }}
-    name: Ruby lint
-    runs-on: ubuntu-20.04
-    needs: linters
-
-    steps:
-      - name: Check linters job status
-        if: ${{ needs.linters.result != 'success' }}
-        run: exit 1
-
-  ruby-specs-job:
-    name: Ruby specs
-    runs-on: ubuntu-20.04
-    timeout-minutes: 40
+      - name: Run specs
+        run: |
+          bundle exec rails spec
+        env:
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPASSWORD: postgres
+          PGPORT: ${{ job.services.postgres.ports[5432] }}
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          RAILS_ENV: test
 
     services:
       postgres:
@@ -50,37 +49,17 @@ jobs:
           - 5432/tcp
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
+  rubocop:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Set up Ruby 3.0.2
+      - name: Setup Ruby and install gems
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-          ruby-version: 3.0.2
-
-      - name: Initialize database
-        env:
-          PGHOST: localhost
-          PGUSER: postgres
-          PGPASSWORD: postgres
-          PGPORT: ${{ job.services.postgres.ports[5432] }}
+          ruby-version: 3.0
+      - name: Run linters
         run: |
-          bundle exec rails db:create
-
-      - name: Run tests
-        id: rspec-test
-        env:
-          PGHOST: localhost
-          PGUSER: postgres
-          PGPASSWORD: postgres
-          PGPORT: ${{ job.services.postgres.ports[5432] }}
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          RAILS_ENV: test
-        continue-on-error: true
-        run: |
-          bundle exec rspec
-
-      - name: Notify failure if rspec test fail
-        if: steps.rspec-test.outcome != 'success'
-        run: exit 1
+          bundle exec rubocop --config .rubocop.yml
