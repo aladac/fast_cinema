@@ -20,6 +20,7 @@ group :development, :test do
   gem 'panolint', '~> 0.1.3'
   gem 'pry-rails', '~> 0.3.9'
   gem 'rspec-rails', '~> 5.0'
+  gem 'rubocop-discourse', '~> 2.4'
   gem 'rubocop-rails', '~> 2.12'
   gem 'rubocop-rspec', '~> 2.5'
 end
