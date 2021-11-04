@@ -22,6 +22,9 @@ Rails/BulkChangeTable:
     - 'db/migrate/*'
 Style/MethodCallWithArgsParentheses:
   Enabled: true
+RSpec/EmptyExampleGroup:
+  Exclude:
+    - 'spec/requests/**/*.rb'
 Layout/ClassStructure:
   Enabled: true
   ExpectedOrder:
