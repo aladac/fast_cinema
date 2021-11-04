@@ -6,7 +6,7 @@ describe 'Movies', type: :request do
   path '/movies' do
     get 'List movies' do
       tags 'Movies'
-      produces 'application/json', 'application/xml'
+      produces 'application/json'
       response '200', 'Movie list' do
         schema type: :array, items: { '$ref': '#/components/schemas/Movie' }
 
@@ -24,7 +24,7 @@ describe 'Movies', type: :request do
 
     get 'Get movie' do
       tags 'Movies'
-      produces 'application/json', 'application/xml'
+      produces 'application/json'
       parameter name: :id, in: :path, type: :integer, required: true
 
       response '200', 'Movie result' do
