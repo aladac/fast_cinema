@@ -38,6 +38,11 @@ jobs:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           RAILS_ENV: test
 
+      - name: Report coverage
+        run: |
+           bash <(curl -Ls https://coverage.codacy.com/get.sh) report --api-token "$env:CODACY_API_TOKEN" --organization-provider gh --username aladac --project-name fast_cinema
+        env:
+          CODACY_API_TOKEN: ${{ secrets.CODACY_API_TOKEN }}
     services:
       postgres:
         image: postgres:11.10
