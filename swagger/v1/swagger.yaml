@@ -1,0 +1,58 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+components:
+  schemas:
+    Movie:
+      type: object
+      properties:
+        name:
+          type: string
+paths:
+  "/movies":
+    get:
+      summary: List movies
+      tags:
+      - Movies
+      responses:
+        '200':
+          description: Movie list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/Movie"
+            application/xml:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/Movie"
+  "/movies/{id}":
+    get:
+      summary: Get movie
+      tags:
+      - Movies
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Movie result
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Movie"
+            application/xml:
+              schema:
+                "$ref": "#/components/schemas/Movie"
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000

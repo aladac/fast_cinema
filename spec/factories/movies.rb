@@ -21,7 +21,6 @@ FactoryBot.define do
     imdb_rating { 'MyString' }
     imdb_votes { 'MyString' }
     imdb_id { 'MyString' }
-    type { '' }
     dvd { 'MyString' }
     box_office { 'MyString' }
     production { 'MyString' }
