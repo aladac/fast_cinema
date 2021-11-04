@@ -2,10 +2,9 @@
 
 FactoryBot.define do
   factory :showing do
-    movie { nil }
-    price { nil }
+    movie
+    price
     start { '2021-11-03 21:44:53' }
     finish { '2021-11-03 21:44:53' }
-    time_range { '' }
   end
 end
