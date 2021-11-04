@@ -8,6 +8,6 @@ class Movie < ApplicationRecord
   before_save :add_runtime_second
 
   def add_runtime_second
-    self.runtime_int = runtime.split.first.to_i * 60
+    self.runtime_seconds = runtime.split.first.to_i * 60
   end
 end

@@ -2,6 +2,6 @@
 
 class AddRuntimeIntToMovies < ActiveRecord::Migration[6.1]
   def change
-    add_column(:movies, :runtime_int, :integer)
+    add_column(:movies, :runtime_seconds, :integer)
   end
 end

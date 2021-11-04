@@ -19,7 +19,7 @@ class Showing < ApplicationRecord
   private
 
   def assign_finish
-    self.finish ||= start + movie.runtime_int
+    self.finish ||= start + movie.runtime_seconds
   end
 
   def overlaps?

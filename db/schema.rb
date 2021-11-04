@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2021_11_03_205230) do
     t.string "response"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "runtime_int"
+    t.integer "runtime_seconds"
     t.index ["imdb_id"], name: "index_movies_on_imdb_id", unique: true
   end
 
