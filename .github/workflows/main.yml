@@ -40,7 +40,7 @@ jobs:
 
       - name: Report coverage
         run: |
-           bash <(curl -Ls https://coverage.codacy.com/get.sh) report --api-token "$env:CODACY_API_TOKEN" --organization-provider gh --username aladac --project-name fast_cinema
+           bash <(curl -Ls https://coverage.codacy.com/get.sh) report --organization-provider gh --username aladac --project-name fast_cinema
         env:
           CODACY_API_TOKEN: ${{ secrets.CODACY_API_TOKEN }}
     services:
