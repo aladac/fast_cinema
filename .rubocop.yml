@@ -6,6 +6,7 @@ AllCops:
   Exclude:
     - 'db/schema.rb'
     - 'bin/*'
+  TargetRubyVersion: 3.0
 Style/Documentation:
   Enabled: false
 Metrics/AbcSize:
