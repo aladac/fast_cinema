@@ -1,4 +1,4 @@
-name: Rails - Install dependencies and run linters
+name: Rails Lint and Spec
 
 on:
   push:
