@@ -8,7 +8,78 @@ components:
     Movie:
       type: object
       properties:
-        name:
+        id:
+          type: integer
+        title:
+          type: string
+        year:
+          type: string
+        rated:
+          type: string
+        released:
+          type: string
+        runtime:
+          type: string
+        genre:
+          type: string
+        director:
+          type: string
+        writer:
+          type: string
+        actors:
+          type: string
+        plot:
+          type: string
+        language:
+          type: string
+        country:
+          type: string
+        awards:
+          type: string
+        poster:
+          type: string
+        ratings:
+          type: object
+        metascore:
+          type: string
+        imdb_rating:
+          type: string
+        imdb_votes:
+          type: string
+        imdb_id:
+          type: string
+        dvd:
+          type: string
+        box_office:
+          type: string
+        production:
+          type: string
+        website:
+          type: string
+        response:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        runtime_seconds:
+          type: integer
+    Showing:
+      type: object
+      properties:
+        id:
+          type: integer
+        movie_id:
+          type: integer
+        price_id:
+          type: integer
+        start:
+          type: string
+        finish:
+          type: string
+        created_at:
+          type: string
+        updated_at:
           type: string
 paths:
   "/movies":
@@ -43,5 +114,149 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Movie"
+  "/showings":
+    get:
+      summary: List showings
+      tags:
+      - Showings
+      responses:
+        '200':
+          description: Showing list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/Showing"
+    post:
+      summary: Create showing
+      tags:
+      - Showings
+      parameters: []
+      responses:
+        '201':
+          description: Showing result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  movie_id:
+                    type: integer
+                  price_id:
+                    type: integer
+                  start:
+                    type: string
+                  finish:
+                    type: string
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+        '422':
+          description: Showing result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                  status:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                movie_id:
+                  type: integer
+                price_id:
+                  type: integer
+                start:
+                  type: string
+                finish:
+                  type: string
+                created_at:
+                  type: string
+                updated_at:
+                  type: string
+        required: true
+  "/showings/{id}":
+    get:
+      summary: Get showing
+      tags:
+      - Showings
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Showing result
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Showing"
+    patch:
+      summary: Update showing
+      tags:
+      - Showings
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Showing result
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Showing"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                movie_id:
+                  type: integer
+                price_id:
+                  type: integer
+                start:
+                  type: string
+                finish:
+                  type: string
+                created_at:
+                  type: string
+                updated_at:
+                  type: string
+        required: true
+    delete:
+      summary: Delete showing
+      tags:
+      - Showings
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Showing result
 servers:
 - url: http://localhost:3000

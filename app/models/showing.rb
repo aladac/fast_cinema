@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Showing < ApplicationRecord
+  SCHEMA_CLASS = Schemas::Showings
+
   belongs_to :movie
   belongs_to :price
 
@@ -19,19 +21,27 @@ class Showing < ApplicationRecord
   private
 
   def assign_finish
+    return if start.blank?
+
     self.finish ||= start + movie.runtime_seconds
   end
 
   def overlaps?
+    return if start.blank?
+
     overlap_query.first['count'].positive?
   end
 
   def overlap_query
-    Showing.connection.execute(<<~SQL.squish)
+    sql = <<~SQL.squish
       SELECT count(id) from showings
       where
         (start::timestamp, finish::timestamp) OVERLAPS
         ('#{start}'::timestamp, '#{finish}'::timestamp)
     SQL
+
+    sql << "AND id <> #{id}" if id.present?
+
+    Showing.connection.execute(sql)
   end
 end

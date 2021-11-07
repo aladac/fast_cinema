@@ -8,7 +8,7 @@ describe 'Movies', type: :request do
       tags 'Movies'
       produces 'application/json'
       response '200', 'Movie list' do
-        schema type: :array, items: { '$ref': '#/components/schemas/Movie' }
+        schema Movie.list_schema
 
         run_test! do |response|
           expect(response.body).to(
@@ -28,7 +28,7 @@ describe 'Movies', type: :request do
       parameter name: :id, in: :path, type: :integer, required: true
 
       response '200', 'Movie result' do
-        schema '$ref': '#/components/schemas/Movie'
+        schema Movie.schema_reference
 
         run_test! do |response|
           expect(response.body).to(

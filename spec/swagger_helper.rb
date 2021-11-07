@@ -22,9 +22,7 @@ RSpec.configure do |config|
         version: 'v1'
       },
       components: {
-        schemas: {
-          'Movie' => { type: :object, properties: { name: { type: :string } } }
-        }
+        schemas: Schemas::All.show
       },
       paths: {},
       servers: [

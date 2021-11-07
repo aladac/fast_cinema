@@ -16,7 +16,7 @@ FactoryBot.define do
     country { 'MyString' }
     awards { 'MyString' }
     poster { 'MyString' }
-    ratings { '' }
+    ratings { {} }
     metascore { 'MyString' }
     imdb_rating { 'MyString' }
     imdb_votes { 'MyString' }
@@ -26,5 +26,6 @@ FactoryBot.define do
     production { 'MyString' }
     website { 'MyString' }
     response { 'MyString' }
+    runtime_seconds { 1234 }
   end
 end
