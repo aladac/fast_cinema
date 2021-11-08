@@ -7,6 +7,7 @@ describe 'Showings', type: :request do
   let(:price)               { create(:price) }
   let(:unpersisted_showing) { build(:showing, movie: movie, price: price) }
   let(:invalid_showing)     { build(:showing, start: nil) }
+  let(:'X-Api-Key')         { create(:api_key).value }
 
   path '/showings' do
     get 'List showings' do
@@ -14,6 +15,8 @@ describe 'Showings', type: :request do
       produces 'application/json'
 
       response '200', 'Showing list' do
+        security([{ api_key: [] }])
+
         schema Showing.list_schema
 
         run_test! do |response|
@@ -32,6 +35,8 @@ describe 'Showings', type: :request do
       consumes 'application/json'
 
       response '201', 'Showing result' do
+        security([{ api_key: [] }])
+
         parameter name: :showing, in: :body, schema: Showing.schema, required: true
         schema    Showing.schema
 
@@ -62,6 +67,8 @@ describe 'Showings', type: :request do
       parameter name: :id, in: :path, type: :integer, required: true
 
       response '200', 'Showing result' do
+        security([{ api_key: [] }])
+
         schema Showing.schema_reference
 
         run_test! do |response|
@@ -92,6 +99,8 @@ describe 'Showings', type: :request do
       parameter name: :id, in: :path, type: :integer, required: true
 
       response '200', 'Showing result' do
+        security([{ api_key: [] }])
+
         schema Showing.schema_reference
 
         run_test! do |response|
@@ -105,10 +114,14 @@ describe 'Showings', type: :request do
     end
 
     delete 'Delete showing' do
+      security([{ api_key: [] }])
+
       tags 'Showings'
       parameter name: :id, in: :path, type: :integer, required: true
 
       response '204', 'Showing result' do
+        security([{ api_key: [] }])
+
         run_test! do
           expect(Showing.find_by(id: showing.id)).to(eq(nil))
         end

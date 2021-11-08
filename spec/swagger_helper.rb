@@ -22,7 +22,14 @@ RSpec.configure do |config|
         version: 'v1'
       },
       components: {
-        schemas: Schemas::All.show
+        schemas: Schemas::All.show,
+        securitySchemes: {
+          api_key: {
+            type: :apiKey,
+            name: 'X-Api-Key',
+            in: :header
+          }
+        }
       },
       paths: {},
       servers: [
