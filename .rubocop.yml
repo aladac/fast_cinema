@@ -17,6 +17,9 @@ Metrics/BlockLength:
     - 'spec/**/*'
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
+RSpec/VariableName:
+  Exclude:
+    - 'spec/requests/**/*'
 Metrics/MethodLength:
   Exclude:
     - 'db/migrate/*'

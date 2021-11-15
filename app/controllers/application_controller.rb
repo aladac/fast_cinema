@@ -25,6 +25,8 @@ class ApplicationController < ActionController::API
   end
 
   def authentication_needed?
+    return false if authenticated?
+
     %w[showings prices].include?(params[:controller])
   end
 end
