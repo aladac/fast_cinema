@@ -21,12 +21,20 @@ class ApplicationController < ActionController::API
   end
 
   def api_key
-    params[:api_key] || request.headers['X-Api-Key']
+    request.headers['X-Api-Key']
   end
 
   def authentication_needed?
     return false if authenticated?
 
+    authenticated_controller? and authenticated_action?
+  end
+
+  def authenticated_controller?
     %w[showings prices].include?(params[:controller])
+  end
+
+  def authenticated_action?
+    %w[create update destroy].include?(params[:action])
   end
 end
