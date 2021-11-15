@@ -8,8 +8,6 @@ components:
     Movie:
       type: object
       properties:
-        id:
-          type: integer
         title:
           type: string
         year:
@@ -67,8 +65,6 @@ components:
     Showing:
       type: object
       properties:
-        id:
-          type: integer
         movie_id:
           type: integer
         price_id:
@@ -76,6 +72,17 @@ components:
         start:
           type: string
         finish:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    Price:
+      type: object
+      properties:
+        value:
+          type: string
+        description:
           type: string
         created_at:
           type: string
@@ -119,6 +126,22 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Movie"
+  "/prices":
+    get:
+      summary: List prices
+      tags:
+      - Prices
+      security:
+      - api_key: []
+      responses:
+        '200':
+          description: Prices list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/Price"
   "/showings":
     get:
       summary: List showings
@@ -150,8 +173,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  id:
-                    type: integer
                   movie_id:
                     type: integer
                   price_id:
@@ -183,8 +204,6 @@ paths:
             schema:
               type: object
               properties:
-                id:
-                  type: integer
                 movie_id:
                   type: integer
                 price_id:
@@ -243,8 +262,6 @@ paths:
             schema:
               type: object
               properties:
-                id:
-                  type: integer
                 movie_id:
                   type: integer
                 price_id:

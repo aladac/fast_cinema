@@ -36,6 +36,8 @@ module Schemas
       schema = {}
 
       columns.each do |column|
+        next if column.name == 'id'
+
         schema[column.name] = { type: column_type(column) }
       end
 
