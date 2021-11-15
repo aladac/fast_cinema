@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 describe 'Prices', type: :request do
-  let(:price)            { create(:price) }
-  let(:id)                  { price.id }
-  let(:'X-Api-Key')         { create(:api_key).value }
+  let(:price)             { create(:price) }
+  let(:id)                { price.id }
+  let(:'X-Api-Key')       { create(:api_key).value }
   let(:unpersisted_price) { build(:price) }
   let(:invalid_price)     { build(:price, value: nil) }
 
@@ -114,7 +114,7 @@ describe 'Prices', type: :request do
       tags 'Prices'
       parameter name: :id, in: :path, type: :integer, required: true
 
-      response '204', 'Showing result' do
+      response '204', 'Price result' do
         security([{ api_key: [] }])
 
         run_test! do
