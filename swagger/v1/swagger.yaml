@@ -409,5 +409,3 @@ paths:
       responses:
         '204':
           description: Showing result
-servers:
-- url: http://localhost:3000
