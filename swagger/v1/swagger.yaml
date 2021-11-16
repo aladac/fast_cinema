@@ -62,6 +62,13 @@ definitions:
         type: string
       runtime_seconds:
         type: integer
+  Price:
+    type: object
+    properties:
+      value:
+        type: string
+      description:
+        type: string
   Showing:
     type: object
     properties:
@@ -72,13 +79,6 @@ definitions:
       start:
         type: string
       finish:
-        type: string
-  Price:
-    type: object
-    properties:
-      value:
-        type: string
-      description:
         type: string
 paths:
   "/movies":

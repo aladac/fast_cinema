@@ -2,7 +2,7 @@
 
 module Schemas
   class All
-    SWAGGERED_CLASSES = [Movie, Showing, Price].freeze
+    SWAGGERED_CLASSES = [Movie, Price, Showing].freeze
 
     def self.show
       schemas = {}
