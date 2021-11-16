@@ -8,8 +8,6 @@ components:
     Movie:
       type: object
       properties:
-        id:
-          type: integer
         title:
           type: string
         year:
@@ -67,8 +65,6 @@ components:
     Showing:
       type: object
       properties:
-        id:
-          type: integer
         movie_id:
           type: integer
         price_id:
@@ -76,6 +72,17 @@ components:
         start:
           type: string
         finish:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    Price:
+      type: object
+      properties:
+        value:
+          type: string
+        description:
           type: string
         created_at:
           type: string
@@ -119,6 +126,142 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Movie"
+  "/prices":
+    get:
+      summary: List prices
+      tags:
+      - Prices
+      security:
+      - api_key: []
+      responses:
+        '200':
+          description: Prices list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/Price"
+    post:
+      summary: Create price
+      tags:
+      - Prices
+      security:
+      - api_key: []
+      parameters: []
+      responses:
+        '201':
+          description: Price result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
+                  description:
+                    type: string
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+        '422':
+          description: Price result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                  status:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: string
+                description:
+                  type: string
+                created_at:
+                  type: string
+                updated_at:
+                  type: string
+        required: true
+  "/prices/{id}":
+    get:
+      summary: Get price
+      tags:
+      - Prices
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      security:
+      - api_key: []
+      responses:
+        '200':
+          description: Price result
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Price"
+    patch:
+      summary: Update price
+      tags:
+      - Prices
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      security:
+      - api_key: []
+      responses:
+        '200':
+          description: Price result
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Price"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: string
+                description:
+                  type: string
+                created_at:
+                  type: string
+                updated_at:
+                  type: string
+        required: true
+    delete:
+      summary: Delete price
+      security:
+      - api_key: []
+      tags:
+      - Prices
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Price result
   "/showings":
     get:
       summary: List showings
@@ -150,8 +293,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  id:
-                    type: integer
                   movie_id:
                     type: integer
                   price_id:
@@ -183,8 +324,6 @@ paths:
             schema:
               type: object
               properties:
-                id:
-                  type: integer
                 movie_id:
                   type: integer
                 price_id:
@@ -243,8 +382,6 @@ paths:
             schema:
               type: object
               properties:
-                id:
-                  type: integer
                 movie_id:
                   type: integer
                 price_id:

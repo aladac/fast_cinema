@@ -6,4 +6,8 @@ describe(Price, type: :model) do
   describe 'Associations' do
     it { is_expected.to(have_many(:showings)) }
   end
+
+  describe 'Validations' do
+    it { is_expected.to(validate_presence_of(:value)) }
+  end
 end
