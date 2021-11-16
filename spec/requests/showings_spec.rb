@@ -15,7 +15,7 @@ describe 'Showings', type: :request do
       produces 'application/json'
 
       response '200', 'Showing list' do
-        security([{ api_key: [] }])
+        security([{ ApiKeyAuth: [] }])
 
         schema Showing.list_schema
 
@@ -35,7 +35,7 @@ describe 'Showings', type: :request do
       consumes 'application/json'
 
       response '201', 'Showing result' do
-        security([{ api_key: [] }])
+        security([{ ApiKeyAuth: [] }])
 
         parameter name: :showing, in: :body, schema: Showing.schema, required: true
         schema    Showing.schema
@@ -67,7 +67,7 @@ describe 'Showings', type: :request do
       parameter name: :id, in: :path, type: :integer, required: true
 
       response '200', 'Showing result' do
-        security([{ api_key: [] }])
+        security([{ ApiKeyAuth: [] }])
 
         schema Showing.schema_reference
 
@@ -99,7 +99,7 @@ describe 'Showings', type: :request do
       parameter name: :id, in: :path, type: :integer, required: true
 
       response '200', 'Showing result' do
-        security([{ api_key: [] }])
+        security([{ ApiKeyAuth: [] }])
 
         schema Showing.schema_reference
 
@@ -114,13 +114,13 @@ describe 'Showings', type: :request do
     end
 
     delete 'Delete showing' do
-      security([{ api_key: [] }])
+      security([{ ApiKeyAuth: [] }])
 
       tags 'Showings'
       parameter name: :id, in: :path, type: :integer, required: true
 
       response '204', 'Showing result' do
-        security([{ api_key: [] }])
+        security([{ ApiKeyAuth: [] }])
 
         run_test! do
           expect(Showing.find_by(id: showing.id)).to(eq(nil))

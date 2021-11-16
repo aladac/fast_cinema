@@ -3,7 +3,9 @@
 Rails.application.routes.draw do
   root to: redirect('/api-docs')
 
-  resources :movies, only: %i[show index]
+  resources :movies, only: %i[show index] do
+    post 'review/:rating', on: :member, to: 'movies#review'
+  end
   resources :prices
   resources :showings
 

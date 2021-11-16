@@ -37,5 +37,21 @@ describe 'Movies', type: :request do
         end
       end
     end
+
+    path '/movies/{id}/review/{rating}' do
+      let(:id) { movie.id }
+      let(:rating) { rand(1..4) }
+
+      post 'Review movie' do
+        tags 'Movies'
+        produces 'application/json'
+        parameter name: :id, in: :path, type: :integer, required: true
+        parameter name: :rating, in: :path, type: :integer, required: true
+
+        response '204', 'Rating success' do
+          run_test!
+        end
+      end
+    end
   end
 end

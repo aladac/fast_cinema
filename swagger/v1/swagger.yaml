@@ -1,264 +1,264 @@
 ---
-openapi: 3.0.1
+swagger: '2.0'
 info:
   title: API V1
   version: v1
-components:
-  schemas:
-    Movie:
-      type: object
-      properties:
-        title:
-          type: string
-        year:
-          type: string
-        rated:
-          type: string
-        released:
-          type: string
-        runtime:
-          type: string
-        genre:
-          type: string
-        director:
-          type: string
-        writer:
-          type: string
-        actors:
-          type: string
-        plot:
-          type: string
-        language:
-          type: string
-        country:
-          type: string
-        awards:
-          type: string
-        poster:
-          type: string
-        ratings:
-          type: object
-        metascore:
-          type: string
-        imdb_rating:
-          type: string
-        imdb_votes:
-          type: string
-        imdb_id:
-          type: string
-        dvd:
-          type: string
-        box_office:
-          type: string
-        production:
-          type: string
-        website:
-          type: string
-        response:
-          type: string
-        created_at:
-          type: string
-        updated_at:
-          type: string
-        runtime_seconds:
-          type: integer
-    Showing:
-      type: object
-      properties:
-        movie_id:
-          type: integer
-        price_id:
-          type: integer
-        start:
-          type: string
-        finish:
-          type: string
-        created_at:
-          type: string
-        updated_at:
-          type: string
-    Price:
-      type: object
-      properties:
-        value:
-          type: string
-        description:
-          type: string
-        created_at:
-          type: string
-        updated_at:
-          type: string
-  securitySchemes:
-    api_key:
-      type: apiKey
-      name: X-Api-Key
-      in: header
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    name: X-Api-Key
+    in: header
+definitions:
+  Movie:
+    type: object
+    properties:
+      title:
+        type: string
+      year:
+        type: string
+      rated:
+        type: string
+      released:
+        type: string
+      runtime:
+        type: string
+      genre:
+        type: string
+      director:
+        type: string
+      writer:
+        type: string
+      actors:
+        type: string
+      plot:
+        type: string
+      language:
+        type: string
+      country:
+        type: string
+      awards:
+        type: string
+      poster:
+        type: string
+      ratings:
+        type: object
+      metascore:
+        type: string
+      imdb_rating:
+        type: string
+      imdb_votes:
+        type: string
+      imdb_id:
+        type: string
+      dvd:
+        type: string
+      box_office:
+        type: string
+      production:
+        type: string
+      website:
+        type: string
+      response:
+        type: string
+      runtime_seconds:
+        type: integer
+  Showing:
+    type: object
+    properties:
+      movie_id:
+        type: integer
+      price_id:
+        type: integer
+      start:
+        type: string
+      finish:
+        type: string
+  Price:
+    type: object
+    properties:
+      value:
+        type: string
+      description:
+        type: string
 paths:
   "/movies":
     get:
       summary: List movies
       tags:
       - Movies
+      produces:
+      - application/json
       responses:
         '200':
           description: Movie list
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  "$ref": "#/components/schemas/Movie"
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/Movie"
   "/movies/{id}":
     get:
       summary: Get movie
       tags:
       - Movies
+      produces:
+      - application/json
       parameters:
       - name: id
         in: path
+        type: integer
         required: true
-        schema:
-          type: integer
       responses:
         '200':
           description: Movie result
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/Movie"
+          schema:
+            "$ref": "#/definitions/Movie"
+  "/movies/{id}/review/{rating}":
+    post:
+      summary: Review movie
+      tags:
+      - Movies
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        type: integer
+        required: true
+      - name: rating
+        in: path
+        type: integer
+        required: true
+      responses:
+        '204':
+          description: Rating success
   "/prices":
     get:
       summary: List prices
       tags:
       - Prices
+      produces:
+      - application/json
       security:
-      - api_key: []
+      - ApiKeyAuth: []
       responses:
         '200':
           description: Prices list
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  "$ref": "#/components/schemas/Price"
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/Price"
     post:
       summary: Create price
       tags:
       - Prices
+      produces:
+      - application/json
+      consumes:
+      - application/json
       security:
-      - api_key: []
-      parameters: []
+      - ApiKeyAuth: []
+      parameters:
+      - name: price
+        in: body
+        schema:
+          type: object
+          properties:
+            value:
+              type: string
+            description:
+              type: string
+        required: true
+      - name: price
+        in: body
+        schema:
+          type: object
+          properties:
+            value:
+              type: string
+            description:
+              type: string
+        required: true
       responses:
         '201':
           description: Price result
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  value:
-                    type: string
-                  description:
-                    type: string
-                  created_at:
-                    type: string
-                  updated_at:
-                    type: string
+          schema:
+            type: object
+            properties:
+              value:
+                type: string
+              description:
+                type: string
         '422':
           description: Price result
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                  status:
-                    type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                value:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
                   type: string
-                description:
-                  type: string
-                created_at:
-                  type: string
-                updated_at:
-                  type: string
-        required: true
+              status:
+                type: string
   "/prices/{id}":
     get:
       summary: Get price
       tags:
       - Prices
+      produces:
+      - application/json
       parameters:
       - name: id
         in: path
+        type: integer
         required: true
-        schema:
-          type: integer
       security:
-      - api_key: []
+      - ApiKeyAuth: []
       responses:
         '200':
           description: Price result
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/Price"
+          schema:
+            "$ref": "#/definitions/Price"
     patch:
       summary: Update price
       tags:
       - Prices
+      produces:
+      - application/json
+      consumes:
+      - application/json
       parameters:
+      - name: price
+        in: body
+        schema:
+          type: object
+          properties:
+            value:
+              type: string
+            description:
+              type: string
+        required: true
       - name: id
         in: path
+        type: integer
         required: true
-        schema:
-          type: integer
       security:
-      - api_key: []
+      - ApiKeyAuth: []
       responses:
         '200':
           description: Price result
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/Price"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                value:
-                  type: string
-                description:
-                  type: string
-                created_at:
-                  type: string
-                updated_at:
-                  type: string
-        required: true
+          schema:
+            "$ref": "#/definitions/Price"
     delete:
       summary: Delete price
       security:
-      - api_key: []
+      - ApiKeyAuth: []
       tags:
       - Prices
       parameters:
       - name: id
         in: path
+        type: integer
         required: true
-        schema:
-          type: integer
       responses:
         '204':
           description: Price result
@@ -267,146 +267,145 @@ paths:
       summary: List showings
       tags:
       - Showings
+      produces:
+      - application/json
       security:
-      - api_key: []
+      - ApiKeyAuth: []
       responses:
         '200':
           description: Showing list
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  "$ref": "#/components/schemas/Showing"
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/Showing"
     post:
       summary: Create showing
       tags:
       - Showings
+      produces:
+      - application/json
+      consumes:
+      - application/json
       security:
-      - api_key: []
-      parameters: []
+      - ApiKeyAuth: []
+      parameters:
+      - name: showing
+        in: body
+        schema:
+          type: object
+          properties:
+            movie_id:
+              type: integer
+            price_id:
+              type: integer
+            start:
+              type: string
+            finish:
+              type: string
+        required: true
+      - name: showing
+        in: body
+        schema:
+          type: object
+          properties:
+            movie_id:
+              type: integer
+            price_id:
+              type: integer
+            start:
+              type: string
+            finish:
+              type: string
+        required: true
       responses:
         '201':
           description: Showing result
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  movie_id:
-                    type: integer
-                  price_id:
-                    type: integer
-                  start:
-                    type: string
-                  finish:
-                    type: string
-                  created_at:
-                    type: string
-                  updated_at:
-                    type: string
+          schema:
+            type: object
+            properties:
+              movie_id:
+                type: integer
+              price_id:
+                type: integer
+              start:
+                type: string
+              finish:
+                type: string
         '422':
           description: Showing result
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-                  status:
-                    type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                movie_id:
-                  type: integer
-                price_id:
-                  type: integer
-                start:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
                   type: string
-                finish:
-                  type: string
-                created_at:
-                  type: string
-                updated_at:
-                  type: string
-        required: true
+              status:
+                type: string
   "/showings/{id}":
     get:
       summary: Get showing
       tags:
       - Showings
+      produces:
+      - application/json
       parameters:
       - name: id
         in: path
+        type: integer
         required: true
-        schema:
-          type: integer
       security:
-      - api_key: []
+      - ApiKeyAuth: []
       responses:
         '200':
           description: Showing result
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/Showing"
+          schema:
+            "$ref": "#/definitions/Showing"
     patch:
       summary: Update showing
       tags:
       - Showings
+      produces:
+      - application/json
+      consumes:
+      - application/json
       parameters:
+      - name: showing
+        in: body
+        schema:
+          type: object
+          properties:
+            movie_id:
+              type: integer
+            price_id:
+              type: integer
+            start:
+              type: string
+            finish:
+              type: string
+        required: true
       - name: id
         in: path
+        type: integer
         required: true
-        schema:
-          type: integer
       security:
-      - api_key: []
+      - ApiKeyAuth: []
       responses:
         '200':
           description: Showing result
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/Showing"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                movie_id:
-                  type: integer
-                price_id:
-                  type: integer
-                start:
-                  type: string
-                finish:
-                  type: string
-                created_at:
-                  type: string
-                updated_at:
-                  type: string
-        required: true
+          schema:
+            "$ref": "#/definitions/Showing"
     delete:
       summary: Delete showing
       security:
-      - api_key: []
+      - ApiKeyAuth: []
       tags:
       - Showings
       parameters:
       - name: id
         in: path
+        type: integer
         required: true
-        schema:
-          type: integer
       responses:
         '204':
           description: Showing result

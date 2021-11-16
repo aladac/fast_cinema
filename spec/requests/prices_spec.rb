@@ -13,7 +13,7 @@ describe 'Prices', type: :request do
       produces 'application/json'
 
       response '200', 'Prices list' do
-        security([{ api_key: [] }])
+        security([{ ApiKeyAuth: [] }])
 
         schema Price.list_schema
 
@@ -33,7 +33,7 @@ describe 'Prices', type: :request do
       consumes 'application/json'
 
       response '201', 'Price result' do
-        security([{ api_key: [] }])
+        security([{ ApiKeyAuth: [] }])
 
         parameter name: :price, in: :body, schema: Price.schema, required: true
         schema    Price.schema
@@ -65,7 +65,7 @@ describe 'Prices', type: :request do
       parameter name: :id, in: :path, type: :integer, required: true
 
       response '200', 'Price result' do
-        security([{ api_key: [] }])
+        security([{ ApiKeyAuth: [] }])
 
         schema Price.schema_reference
 
@@ -94,7 +94,7 @@ describe 'Prices', type: :request do
       parameter name: :id, in: :path, type: :integer, required: true
 
       response '200', 'Price result' do
-        security([{ api_key: [] }])
+        security([{ ApiKeyAuth: [] }])
 
         schema Price.schema_reference
 
@@ -109,13 +109,13 @@ describe 'Prices', type: :request do
     end
 
     delete 'Delete price' do
-      security([{ api_key: [] }])
+      security([{ ApiKeyAuth: [] }])
 
       tags 'Prices'
       parameter name: :id, in: :path, type: :integer, required: true
 
       response '204', 'Price result' do
-        security([{ api_key: [] }])
+        security([{ ApiKeyAuth: [] }])
 
         run_test! do
           expect(Price.find_by(id: price.id)).to(eq(nil))

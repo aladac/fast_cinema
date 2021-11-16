@@ -10,9 +10,8 @@ class Showing < ApplicationRecord
 
   validate do
     if overlaps?
-      message = I18n.t('models.showing.another_movie_is_playing')
-      errors.add(:start, message)
-      errors.add(:finish, message)
+      message = I18n.t('.another_movie_is_playing')
+      errors.add(:base, message)
     end
   end
 
