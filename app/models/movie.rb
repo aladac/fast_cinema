@@ -4,6 +4,7 @@ class Movie < ApplicationRecord
   SCHEMA_CLASS = Schemas::Movies
 
   has_many :showings, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   validates :imdb_id, uniqueness: true
 

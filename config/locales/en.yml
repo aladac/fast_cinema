@@ -1,4 +1,11 @@
 en:
   models:
     showing:
-      another_movie_is_playing: 'Another movie is playing'
+      another_movie_is_playing: Another movie is playing
+  activerecord:
+    errors:
+      models:
+        review:
+          attributes:
+            source:
+              taken: Not so fast, you already rated this movie
