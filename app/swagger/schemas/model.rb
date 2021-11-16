@@ -22,7 +22,7 @@ module Schemas
 
     def reference
       {
-        '$ref': "#/components/schemas/#{model_class}"
+        '$ref': "#/definitions/#{model_class}"
       }
     end
 
@@ -36,7 +36,7 @@ module Schemas
       schema = {}
 
       columns.each do |column|
-        next if column.name == 'id'
+        next if %w[id created_at updated_at].include?(column.name)
 
         schema[column.name] = { type: column_type(column) }
       end
