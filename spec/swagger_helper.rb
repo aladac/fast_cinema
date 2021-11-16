@@ -29,12 +29,7 @@ RSpec.configure do |config|
         }
       },
       definitions: Schemas::All.show,
-      paths: {},
-      servers: [
-        {
-          url: ENV['SWAGGER_URL'] || 'http://localhost:3000'
-        }
-      ]
+      paths: {}
     }
   }
 
