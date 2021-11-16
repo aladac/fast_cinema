@@ -7,9 +7,15 @@ class Review < ApplicationRecord
   validates :rating, inclusion: { in: (1..5) }
 
   def already_rated?
-    return true if persisted?
     return false if errors.blank?
+    return true if persisted?
 
-    errors.select { |e| e.attribute == :source }.first.type == :taken
+    source_error.try(:type) == :taken or false
+  end
+
+  private
+
+  def source_error
+    errors.select { |e| e.attribute == :source }.first
   end
 end
