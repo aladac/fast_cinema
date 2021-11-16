@@ -27,14 +27,10 @@ class ApplicationController < ActionController::API
   def authentication_needed?
     return false if authenticated?
 
-    authenticated_controller? and authenticated_action?
+    authenticated_controller?
   end
 
   def authenticated_controller?
     %w[showings prices].include?(params[:controller])
-  end
-
-  def authenticated_action?
-    %w[create update destroy].include?(params[:action])
   end
 end
