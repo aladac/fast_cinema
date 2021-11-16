@@ -17,7 +17,7 @@ class MoviesController < ApplicationController
     @review = @movie.reviews.new(rating: params[:rating], source: source)
 
     if @review.save
-      head(:ok)
+      head(:no_content)
     else
       render_review_error!
     end
@@ -27,7 +27,7 @@ class MoviesController < ApplicationController
 
   def source
     Base64.strict_encode64(
-      request.env['REMOTE_ADDR'] + request.env['HTTP_USER_AGENT']
+      "#{request.env['REMOTE_ADDR']}#{request.env['HTTP_USER_AGENT']}"
     )
   end
 
