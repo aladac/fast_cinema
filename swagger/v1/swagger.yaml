@@ -155,8 +155,6 @@ paths:
       - application/json
       consumes:
       - application/json
-      security:
-      - ApiKeyAuth: []
       parameters:
       - name: price
         in: body
@@ -168,16 +166,8 @@ paths:
             description:
               type: string
         required: true
-      - name: price
-        in: body
-        schema:
-          type: object
-          properties:
-            value:
-              type: string
-            description:
-              type: string
-        required: true
+      security:
+      - ApiKeyAuth: []
       responses:
         '201':
           description: Price result
@@ -286,8 +276,6 @@ paths:
       - application/json
       consumes:
       - application/json
-      security:
-      - ApiKeyAuth: []
       parameters:
       - name: showing
         in: body
@@ -303,20 +291,8 @@ paths:
             finish:
               type: string
         required: true
-      - name: showing
-        in: body
-        schema:
-          type: object
-          properties:
-            movie_id:
-              type: integer
-            price_id:
-              type: integer
-            start:
-              type: string
-            finish:
-              type: string
-        required: true
+      security:
+      - ApiKeyAuth: []
       responses:
         '201':
           description: Showing result

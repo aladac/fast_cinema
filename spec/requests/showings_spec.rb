@@ -34,10 +34,11 @@ describe 'Showings', type: :request do
       produces 'application/json'
       consumes 'application/json'
 
+      parameter name: :showing, in: :body, schema: Showing.schema, required: true
+
       response '201', 'Showing result' do
         security([{ ApiKeyAuth: [] }])
 
-        parameter name: :showing, in: :body, schema: Showing.schema, required: true
         schema    Showing.schema
 
         run_test! do |response|
@@ -49,7 +50,6 @@ describe 'Showings', type: :request do
       response '422', 'Showing result' do
         let(:showing) { invalid_showing }
 
-        parameter name: :showing, in: :body, schema: Showing.schema, required: true
         schema    Schemas::Errors.show
 
         run_test! do |response|

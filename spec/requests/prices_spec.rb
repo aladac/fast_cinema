@@ -32,10 +32,11 @@ describe 'Prices', type: :request do
       produces 'application/json'
       consumes 'application/json'
 
+      parameter name: :price, in: :body, schema: Price.schema, required: true
+
       response '201', 'Price result' do
         security([{ ApiKeyAuth: [] }])
 
-        parameter name: :price, in: :body, schema: Price.schema, required: true
         schema    Price.schema
 
         run_test! do |response|
@@ -47,7 +48,6 @@ describe 'Prices', type: :request do
       response '422', 'Price result' do
         let(:price) { invalid_price }
 
-        parameter name: :price, in: :body, schema: Price.schema, required: true
         schema    Schemas::Errors.show
 
         run_test! do |response|
