@@ -17,6 +17,17 @@ class Showing < ApplicationRecord
 
   before_validation :assign_finish
 
+  scope :showtime, lambda { |start = nil, finish = nil|
+    start  ||= Time.current.at_beginning_of_week
+    finish ||= start + 1.week
+    joins(:movie).joins(:price)
+                 .select(
+                   'showings.id', 'movies.title', 'prices.value as price_value',
+                   'movies.rated', 'showings.start', 'movies.runtime'
+                 )
+                 .where('start >= ? and finish <= ?', start, finish)
+  }
+
   private
 
   def assign_finish

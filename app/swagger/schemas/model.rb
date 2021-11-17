@@ -4,7 +4,7 @@ module Schemas
   class Model
     attr_reader :model_class
 
-    def initialize(model_class)
+    def initialize(model_class = nil)
       @model_class = model_class
     end
 

@@ -80,6 +80,21 @@ definitions:
         type: string
       finish:
         type: string
+  Showtime:
+    type: object
+    properties:
+      id:
+        type: integer
+      title:
+        type: string
+      price_value:
+        type: string
+      rated:
+        type: string
+      start:
+        type: string
+      runtime:
+        type: string
 paths:
   "/movies":
     get:
@@ -385,3 +400,28 @@ paths:
       responses:
         '204':
           description: Showing result
+  "/showtime":
+    get:
+      summary: Filter showtimes
+      tags:
+      - Showtime
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Showing list
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/Showtime"
+      parameters:
+      - name: start
+        in: query
+        type: string
+        description: Time from
+        default: Begninning of current week
+      - name: finish
+        in: query
+        type: string
+        description: Time to
+        default: End of current week
