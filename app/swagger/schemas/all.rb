@@ -11,6 +11,8 @@ module Schemas
         schemas[klass.to_s] = klass.schema
       end
 
+      schemas['Showtime'] = Schemas::Showtimes.new.show
+
       schemas
     end
   end
