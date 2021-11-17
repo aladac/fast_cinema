@@ -4,6 +4,6 @@ FactoryBot.define do
   factory :review do
     rating { 1 }
     source { 'MyString' }
-    movie { nil }
+    movie
   end
 end

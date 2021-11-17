@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+describe(Review, type: :model) do
+  subject(:review) { create(:review) }
 
-RSpec.describe(Review, type: :model) do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'Validations' do
+    it {
+      expect(review).to(
+        validate_uniqueness_of(:source).scoped_to(:movie_id)
+      )
+    }
+  end
 end
