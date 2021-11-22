@@ -13,7 +13,7 @@ class ShowtimeController < ApplicationController
     @start  = Time.zone.parse(params[:start])
     @finish = Time.zone.parse(params[:finish])
 
-    head(:unprocessable_entity) and return if @start.blank?
+    head(:unprocessable_entity) and return if @start.blank? && params[:start].present?
   end
 
   private

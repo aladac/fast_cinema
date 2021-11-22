@@ -26,8 +26,8 @@ describe 'Showtimes', type: :request do
       let(:start) { Time.current.at_beginning_of_week.to_s }
       let(:finish) { Time.current.at_end_of_week.to_s }
 
-      parameter name: :start, in: :query, type: :string, description: 'Time from', default: 'Begninning of current week'
-      parameter name: :finish, in: :query, type: :string, description: 'Time to', default: 'End of current week'
+      parameter name: :start, in: :query, type: :string, description: 'Time from'
+      parameter name: :finish, in: :query, type: :string, description: 'Time to'
 
       response '200', 'Showing list' do
         schema Schemas::Showtimes.new.list
@@ -43,9 +43,8 @@ describe 'Showtimes', type: :request do
         let(:start) { 'foobar' }
         let(:finish) { 'foboar' }
 
-        parameter name: :start, in: :query, type: :string, description: 'Time from',
-                  default: 'Begninning of current week'
-        parameter name: :finish, in: :query, type: :string, description: 'Time to', default: 'End of current week'
+        parameter name: :start, in: :query, type: :string, description: 'Time from'
+        parameter name: :finish, in: :query, type: :string, description: 'Time to'
 
         run_test!
       end

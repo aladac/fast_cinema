@@ -443,19 +443,15 @@ paths:
         in: query
         type: string
         description: Time from
-        default: Begninning of current week
       - name: finish
         in: query
         type: string
         description: Time to
-        default: End of current week
       - name: start
         in: query
         type: string
         description: Time from
-        default: Begninning of current week
       - name: finish
         in: query
         type: string
         description: Time to
-        default: End of current week
