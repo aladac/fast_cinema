@@ -17,6 +17,7 @@ module FastCinema
     config.autoload_paths += %W[
       #{config.root}/app/swagger/**/*.rb
       #{config.root}/app/services/**/*.rb
+      #{config.root}/app/lib/**/*.rb
       #{config.root}/lib/**/*.rb
     ]
 
