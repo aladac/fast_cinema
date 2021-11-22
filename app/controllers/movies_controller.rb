@@ -16,7 +16,7 @@ class MoviesController < ApplicationController
   end
 
   def review
-    @review = @movie.reviews.new(rating: params[:rating])
+    @review = @movie.reviews.new(rating: params[:rating], source: source)
 
     if @review.save
       head(:no_content)

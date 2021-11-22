@@ -7,7 +7,7 @@ describe 'Showings', type: :request do
   let(:price)               { create(:price) }
   let(:unpersisted_showing) { build(:showing, movie: movie, price: price) }
   let(:invalid_showing)     { build(:showing, start: nil) }
-  let(:'X-Api-Key')         { create(:api_key).value }
+  let(:'X-Api-Key') { create(:api_key).value }
 
   path '/showings' do
     get 'List showings' do
@@ -109,6 +109,17 @@ describe 'Showings', type: :request do
           expect(updated_showing).to(
             have_attributes(showing.attributes.compact)
           )
+        end
+      end
+
+      response '422', 'Showing result' do
+        let(:showing) { invalid_showing }
+
+        schema    Schemas::Errors.show
+
+        run_test! do |response|
+          expect(json_response(response)).to(have_key('errors'))
+          expect(json_response(response)['errors']).not_to(be_empty)
         end
       end
     end

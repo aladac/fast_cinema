@@ -14,8 +14,6 @@ class ShowtimeController < ApplicationController
     @finish = Time.zone.parse(params[:finish])
 
     head(:unprocessable_entity) and return if @start.blank?
-  rescue StandardError
-    head(:unprocessable_entity)
   end
 
   private

@@ -106,6 +106,17 @@ describe 'Prices', type: :request do
           )
         end
       end
+
+      response '422', 'Price result' do
+        let(:price) { invalid_price }
+
+        schema    Schemas::Errors.show
+
+        run_test! do |response|
+          expect(json_response(response)).to(have_key('errors'))
+          expect(json_response(response)['errors']).not_to(be_empty)
+        end
+      end
     end
 
     delete 'Delete price' do

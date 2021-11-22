@@ -3,6 +3,30 @@
 describe 'Movies', type: :request do
   subject!(:movie) { create(:movie) }
 
+  describe 'multiple rating requests' do
+    before do
+      allow(Rails.cache).to(receive(:fetch).and_return(true))
+    end
+
+    it 'fail because of duplicate' do
+      post rate_movie_path(movie.id, rating: 1)
+      expect(response.code.to_i).to(eq(429))
+    end
+  end
+
+  describe 'inavlid rating requests' do
+    before do
+      review = build(:review)
+      allow(review).to(receive(:save).and_return(false))
+      allow(Review).to(receive(:new).and_return(review))
+    end
+
+    it 'fails because value out of range' do
+      post rate_movie_path(movie.id, rating: 11)
+      expect(response.code.to_i).to(eq(422))
+    end
+  end
+
   path '/movies' do
     get 'List movies' do
       tags 'Movies'

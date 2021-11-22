@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'showtime', to: 'showtime#index'
 
   resources :movies, only: %i[show index] do
-    post 'review/:rating', on: :member, to: 'movies#review'
+    post 'review/:rating', on: :member, to: 'movies#review', as: :rate
   end
 
   resources :prices
