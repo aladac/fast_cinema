@@ -10,3 +10,5 @@ end
 prices.each do |price_attributes|
   Price.create(price_attributes)
 end
+
+ApiKey.create(value: 'super_secret')
