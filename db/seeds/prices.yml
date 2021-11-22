@@ -1,0 +1,11 @@
+---
+- value: !ruby/object:BigDecimal 18:0.599e1
+  description: EJ1
+- value: !ruby/object:BigDecimal 18:0.699e1
+  description: S14
+- value: !ruby/object:BigDecimal 18:0.899e1
+  description: A80
+- value: !ruby/object:BigDecimal 18:0.999e1
+  description: R34
+- value: !ruby/object:BigDecimal 18:0.799e1
+  description: AP1
