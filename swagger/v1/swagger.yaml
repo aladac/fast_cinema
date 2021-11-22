@@ -402,7 +402,7 @@ paths:
           description: Showing result
   "/showtime":
     get:
-      summary: Filter showtimes
+      summary: List showtimes
       tags:
       - Showtime
       produces:
@@ -414,7 +414,19 @@ paths:
             type: array
             items:
               "$ref": "#/definitions/Showtime"
+        '422':
+          description: Showing list filters error
       parameters:
+      - name: start
+        in: query
+        type: string
+        description: Time from
+        default: Begninning of current week
+      - name: finish
+        in: query
+        type: string
+        description: Time to
+        default: End of current week
       - name: start
         in: query
         type: string
