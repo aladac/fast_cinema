@@ -38,6 +38,17 @@ describe 'Showtimes', type: :request do
           )
         end
       end
+
+      response '422', 'Showing list filters error' do
+        let(:start) { 'foobar' }
+        let(:finish) { 'foboar' }
+
+        parameter name: :start, in: :query, type: :string, description: 'Time from',
+                  default: 'Begninning of current week'
+        parameter name: :finish, in: :query, type: :string, description: 'Time to', default: 'End of current week'
+
+        run_test!
+      end
     end
   end
 end

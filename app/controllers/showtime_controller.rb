@@ -8,9 +8,19 @@ class ShowtimeController < ApplicationController
   end
 
   def parse_time_params
-    @start  = Time.zone.parse(params[:start])  if params[:start].present?
-    @finish = Time.zone.parse(params[:finish]) if params[:finish].present?
+    return unless time_params_present?
+
+    @start  = Time.zone.parse(params[:start])
+    @finish = Time.zone.parse(params[:finish])
+
+    head(:unprocessable_entity) and return if @start.blank?
   rescue StandardError
     head(:unprocessable_entity)
+  end
+
+  private
+
+  def time_params_present?
+    params[:start].present?
   end
 end
