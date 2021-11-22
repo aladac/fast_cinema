@@ -253,6 +253,17 @@ paths:
           description: Price result
           schema:
             "$ref": "#/definitions/Price"
+        '422':
+          description: Price result
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: string
+              status:
+                type: string
     delete:
       summary: Delete price
       security:
@@ -386,6 +397,17 @@ paths:
           description: Showing result
           schema:
             "$ref": "#/definitions/Showing"
+        '422':
+          description: Showing result
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: string
+              status:
+                type: string
     delete:
       summary: Delete showing
       security:
