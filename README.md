@@ -52,7 +52,7 @@ To run on `development` enable `rails dev:cache` first.
 ```sh
 # OMDB_API_KEY env var should hold the key
 
-$ OMDB_API_KEY=key_value rails -T omdb
+$ rails -T omdb
 rails omdb:import  # Import all movies
 rails omdb:update  # Update existing movies
 ```
