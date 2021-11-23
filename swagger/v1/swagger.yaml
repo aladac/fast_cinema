@@ -436,17 +436,7 @@ paths:
             type: array
             items:
               "$ref": "#/definitions/Showtime"
-        '422':
-          description: Showing list filters error
       parameters:
-      - name: start
-        in: query
-        type: string
-        description: Time from
-      - name: finish
-        in: query
-        type: string
-        description: Time to
       - name: start
         in: query
         type: string
